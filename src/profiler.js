@@ -5,7 +5,7 @@ const os = require('os')
 
 class Profiler {
     constructor (session, config, s3Tools) {
-        if (!config.storage) config.storage = { type: 'fs' }
+        if (!config.storage) config.storage = { type: 'raw' }
 
         this.s3Tools = s3Tools
         this.session = session
@@ -42,14 +42,16 @@ class Profiler {
                     const tmpDir = os.tmpdir()
                     fs.writeFile(`${tmpDir}/${fileName}`, JSON.stringify(profile), (err) => {
                         if (err) return reject(err)
-                        resolve()
+                        resolve(profile)
                     })
                 } else if (this.config.storage.type === 's3') {
                     this.s3Tools.putJsonObject(this.config.storage.bucket, `${this.config.storage.dir}/${fileName}`, profile).then(() => {
-                        resolve()
+                        resolve(profile)
                     }).catch((err) => {
                         reject(err)
                     })
+                } else if (this.config.storage.type === 'raw') {
+                    resolve(profile)
                 }
             })
         })
