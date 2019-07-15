@@ -17,7 +17,13 @@ class Inspector {
         const session = new inspector.Session()
         session.connect()
 
+        this.session = session
+
         this.profiler = new Profiler(session, config, s3Tools)
+    }
+
+    getCurrentSession () {
+        return this.session
     }
 }
 
