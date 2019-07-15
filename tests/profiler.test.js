@@ -1,9 +1,30 @@
 const Inspector = require('../index')
 
 describe('Inspector', () => {
-    describe('CPU profiler', () => {
+    describe('General methods', () => {
         it('collect raw data', async () => {
             const inspector = new Inspector()
+            await inspector.profiler.enable()
+            const session = inspector.getCurrentSession()
+
+            expect(typeof session).toEqual('object')
+
+            await inspector.destroy()
+
+            expect(inspector.getCurrentSession()).toEqual(null)
+        })
+    })
+
+    describe('CPU profiler', () => {
+
+        let inspector = null
+
+        afterEach(() => {
+            inspector.destroy()
+        })
+
+        it('collect raw data', async () => {
+            inspector = new Inspector()
             await inspector.profiler.enable()
             await inspector.profiler.start()
 
@@ -13,7 +34,7 @@ describe('Inspector', () => {
         })
 
         it('collect data and send to s3', async () => {
-            const inspector = new Inspector({
+            inspector = new Inspector({
                 storage: {
                     type: 's3',
                     bucket: 'testBucket',
@@ -31,7 +52,7 @@ describe('Inspector', () => {
         })
 
         it('collect data but fail to send to s3', async () => {
-            const inspector = new Inspector({
+            inspector = new Inspector({
                 storage: {
                     type: 's3',
                     bucket: 'testBucket',
@@ -51,7 +72,7 @@ describe('Inspector', () => {
         })
 
         it('collect data and write it on the disk', async () => {
-            const inspector = new Inspector({
+            inspector = new Inspector({
                 storage: {
                     type: 'fs'
                 }
@@ -66,7 +87,7 @@ describe('Inspector', () => {
         })
 
         it('enable() fail', async () => {
-            const inspector = new Inspector()
+            inspector = new Inspector()
             inspector.profiler.session.post = (name, cb) => { cb(new Error('enable failed')) }
 
             try {
@@ -79,7 +100,7 @@ describe('Inspector', () => {
         })
 
         it('start() fail', async () => {
-            const inspector = new Inspector()
+            inspector = new Inspector()
 
             try {
                 await inspector.profiler.enable()

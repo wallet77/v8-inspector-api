@@ -19,11 +19,17 @@ class Inspector {
 
         this.session = session
 
-        this.profiler = new Profiler(session, config, s3Tools)
+        this.profiler = new Profiler(this.session, config, s3Tools)
     }
 
     getCurrentSession () {
         return this.session
+    }
+
+    async destroy () {
+        await this.profiler.disable()
+        this.session.disconnect()
+        this.session = null
     }
 }
 

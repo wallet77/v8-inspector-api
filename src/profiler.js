@@ -21,6 +21,15 @@ class Profiler {
         })
     }
 
+    disable () {
+        return new Promise((resolve, reject) => {
+            this.session.post('Profiler.disable', (err) => {
+                if (err) return reject(err)
+                resolve()
+            })
+        })
+    }
+
     start () {
         return new Promise((resolve, reject) => {
             this.session.post('Profiler.start', (err) => {
