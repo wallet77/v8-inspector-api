@@ -17,10 +17,14 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "engines": {
+    "nodes": ">=8.0.0"
+  },
+  "engineStrict": true,
   "devDependencies": {
     "aws-sdk-mock": "^4.5.0",
     "eslint": "^6.0.1",
-    "eslint-config-standard": "^12.0.0",
+    "eslint-config-standard": "^13.0.1",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
@@ -28,6 +32,6 @@
     "jest": "24.8.0"
   },
   "dependencies": {
-    "@voodoo.io/aws-utils": "2.0.0"
+    "@voodoo.io/aws-utils": "2.1.0"
   }
 }
