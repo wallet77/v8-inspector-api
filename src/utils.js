@@ -3,6 +3,8 @@ const os = require('os')
 
 module.exports = {
     writeData: (data, fileName, config, s3Tools) => {
+        if (!config.storage) config.storage = { type: 'raw' }
+
         return new Promise((resolve, reject) => {
             if (config.storage.type === 'fs') {
                 const tmpDir = os.tmpdir()

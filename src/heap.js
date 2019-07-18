@@ -4,8 +4,6 @@ const utils = require('./utils')
 
 class Heap {
     constructor (session, config, s3Tools) {
-        if (!config.storage) config.storage = { type: 'raw' }
-
         this.s3Tools = s3Tools
         this.session = session
         this.config = config
