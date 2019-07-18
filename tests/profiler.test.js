@@ -1,6 +1,6 @@
 const Inspector = require('../index')
 
-describe('Inspector', () => {
+describe('Profiler', () => {
     describe('General methods', () => {
         it('collect raw data', async () => {
             const inspector = new Inspector()

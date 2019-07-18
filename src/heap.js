@@ -23,7 +23,7 @@ class Heap {
                 const date = new Date()
                 const fileName = `profile_${date.getTime()}.heapsnapshot`
 
-                utils.writeData(res.join(), fileName, this.config, this.s3Tools).then((data) => {
+                utils.writeData(res.join(''), fileName, this.config, this.s3Tools).then((data) => {
                     resolve(data)
                 }).catch(err => reject(err))
             })
