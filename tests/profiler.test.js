@@ -16,7 +16,6 @@ describe('Inspector', () => {
     })
 
     describe('CPU profiler', () => {
-
         let inspector = null
 
         afterEach(() => {
@@ -77,7 +76,6 @@ describe('Inspector', () => {
                     type: 'fs'
                 }
             })
-            inspector.profiler.s3Tools.putJsonObject = jest.fn(async () => { throw new Error('S3 failed') })
 
             await inspector.profiler.enable()
             await inspector.profiler.start()
@@ -109,6 +107,19 @@ describe('Inspector', () => {
                 await inspector.profiler.stop()
             } catch (err) {
                 expect(err.message).toEqual('start failed')
+            }
+        })
+
+        it('stop() fail', async () => {
+            inspector = new Inspector()
+
+            try {
+                await inspector.profiler.enable()
+                await inspector.profiler.start()
+                inspector.profiler.session.post = (name, cb) => { cb(new Error('stop failed')) }
+                await inspector.profiler.stop()
+            } catch (err) {
+                expect(err.message).toEqual('stop failed')
             }
         })
     })

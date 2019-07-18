@@ -1,7 +1,6 @@
 'use strict'
 
-const fs = require('fs')
-const os = require('os')
+const utils = require('./utils')
 
 class Profiler {
     constructor (session, config, s3Tools) {
@@ -41,27 +40,17 @@ class Profiler {
 
     stop () {
         return new Promise((resolve, reject) => {
-            this.session.post('Profiler.stop', (err, { profile }) => {
+            this.session.post('Profiler.stop', (err, res) => {
                 if (err) return reject(err)
+
+                const profile = res.profile
 
                 const date = new Date()
                 const fileName = `profile_${date.getTime()}.cpuprofile`
 
-                if (this.config.storage.type === 'fs') {
-                    const tmpDir = os.tmpdir()
-                    fs.writeFile(`${tmpDir}/${fileName}`, JSON.stringify(profile), (err) => {
-                        if (err) return reject(err)
-                        resolve(profile)
-                    })
-                } else if (this.config.storage.type === 's3') {
-                    this.s3Tools.putJsonObject(this.config.storage.bucket, `${this.config.storage.dir}/${fileName}`, profile).then(() => {
-                        resolve(profile)
-                    }).catch((err) => {
-                        reject(err)
-                    })
-                } else if (this.config.storage.type === 'raw') {
-                    resolve(profile)
-                }
+                utils.writeData(profile, fileName, this.config, this.s3Tools).then((data) => {
+                    resolve(data)
+                }).catch(err => reject(err))
             })
         })
     }

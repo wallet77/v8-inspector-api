@@ -3,6 +3,7 @@
 const inspector = require('inspector')
 const AwsUtils = require('@voodoo.io/aws-utils').s3
 const Profiler = require('./src/profiler')
+const Heap = require('./src/heap')
 
 const aws = require('aws-sdk')
 
@@ -20,6 +21,7 @@ class Inspector {
         this.session = session
 
         this.profiler = new Profiler(this.session, config, s3Tools)
+        this.heap = new Heap(this.session, config, s3Tools)
     }
 
     getCurrentSession () {
