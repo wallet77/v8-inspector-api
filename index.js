@@ -30,6 +30,7 @@ class Inspector {
 
     async destroy () {
         await this.profiler.disable()
+        await this.heap.disable()
         this.session.disconnect()
         this.session = null
     }

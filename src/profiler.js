@@ -9,48 +9,20 @@ class Profiler {
         this.config = config
     }
 
-    enable () {
-        return new Promise((resolve, reject) => {
-            this.session.post('Profiler.enable', (err) => {
-                if (err) return reject(err)
-                resolve()
-            })
-        })
+    async enable () {
+        await utils.invokeFunction(this.session, 'Profiler.enable')
     }
 
-    disable () {
-        return new Promise((resolve, reject) => {
-            this.session.post('Profiler.disable', (err) => {
-                if (err) return reject(err)
-                resolve()
-            })
-        })
+    async disable () {
+        await utils.invokeFunction(this.session, 'Profiler.disable')
     }
 
-    start () {
-        return new Promise((resolve, reject) => {
-            this.session.post('Profiler.start', (err) => {
-                if (err) return reject(err)
-                resolve()
-            })
-        })
+    async start () {
+        await utils.invokeFunction(this.session, 'Profiler.start')
     }
 
-    stop () {
-        return new Promise((resolve, reject) => {
-            this.session.post('Profiler.stop', (err, res) => {
-                if (err) return reject(err)
-
-                const profile = res.profile
-
-                const date = new Date()
-                const fileName = `profile_${date.getTime()}.cpuprofile`
-
-                utils.writeData(profile, fileName, this.config, this.s3Tools).then((data) => {
-                    resolve(data)
-                }).catch(err => reject(err))
-            })
-        })
+    async stop () {
+        return utils.invokeStop('Profiler.stop', this.session, 'profile', 'cpuprofile', this.config, this.s3Tools)
     }
 }
 

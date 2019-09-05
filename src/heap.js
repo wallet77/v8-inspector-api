@@ -9,22 +9,20 @@ class Heap {
         this.config = config
     }
 
-    enable () {
-        return new Promise((resolve, reject) => {
-            this.session.post('HeapProfiler.enable', (err) => {
-                if (err) return reject(err)
-                resolve()
-            })
-        })
+    async enable () {
+        await utils.invokeFunction(this.session, 'HeapProfiler.enable')
     }
 
-    disable () {
-        return new Promise((resolve, reject) => {
-            this.session.post('HeapProfiler.disable', (err) => {
-                if (err) return reject(err)
-                resolve()
-            })
-        })
+    async disable () {
+        await utils.invokeFunction(this.session, 'HeapProfiler.disable')
+    }
+
+    async startSampling () {
+        await utils.invokeFunction(this.session, 'HeapProfiler.startSampling')
+    }
+
+    async stopSampling () {
+        return utils.invokeStop('HeapProfiler.stopSampling', this.session, 'heapprofiler', 'heapsnapshot', this.config, this.s3Tools)
     }
 
     takeSnapshot () {

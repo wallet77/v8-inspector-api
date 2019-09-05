@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test ./node_modules/.bin/jest"
+    "test": "NODE_ENV=test ./node_modules/.bin/jest",
+    "lint": "./node_modules/.bin/eslint ./"
   },
   "keywords": [
     "v8",
