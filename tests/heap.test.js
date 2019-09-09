@@ -50,16 +50,20 @@ describe('Heap', () => {
             }
         })
 
-        it('collect sampling raw data', async () => {
+        it('collect sampling raw data', async (done) => {
             inspector = new Inspector()
 
             await inspector.heap.enable()
 
             await inspector.heap.startSampling()
 
-            const data = await inspector.heap.stopSampling()
+            setTimeout(async () => {
+                const data = await inspector.heap.stopSampling()
 
-            expect(Object.keys(data)).toEqual(['head'])
+                expect(Object.keys(data).length > 0).toEqual(true)
+
+                done()
+            }, 500)
         })
     })
 })
