@@ -18,8 +18,8 @@ describe('Profiler', () => {
     describe('CPU profiler', () => {
         let inspector = null
 
-        afterEach(() => {
-            inspector.destroy()
+        afterEach(async () => {
+            await inspector.destroy()
         })
 
         it('collect raw data', async () => {
@@ -86,39 +86,48 @@ describe('Profiler', () => {
 
         it('enable() fail', async () => {
             inspector = new Inspector()
+            const oldImpl = inspector.profiler.session.post
             inspector.profiler.session.post = (name, cb) => { cb(new Error('enable failed')) }
 
             try {
                 await inspector.profiler.enable()
                 await inspector.profiler.start()
                 await inspector.profiler.stop()
+                throw new Error('Should have failed!')
             } catch (err) {
+                inspector.profiler.session.post = oldImpl
                 expect(err.message).toEqual('enable failed')
             }
         })
 
         it('start() fail', async () => {
             inspector = new Inspector()
+            const oldImpl = inspector.profiler.session.post
 
             try {
                 await inspector.profiler.enable()
                 inspector.profiler.session.post = (name, cb) => { cb(new Error('start failed')) }
                 await inspector.profiler.start()
                 await inspector.profiler.stop()
+                throw new Error('Should have failed!')
             } catch (err) {
+                inspector.profiler.session.post = oldImpl
                 expect(err.message).toEqual('start failed')
             }
         })
 
         it('stop() fail', async () => {
             inspector = new Inspector()
+            const oldImpl = inspector.profiler.session.post
 
             try {
                 await inspector.profiler.enable()
                 await inspector.profiler.start()
                 inspector.profiler.session.post = (name, cb) => { cb(new Error('stop failed')) }
                 await inspector.profiler.stop()
+                throw new Error('Should have failed!')
             } catch (err) {
+                inspector.profiler.session.post = oldImpl
                 expect(err.message).toEqual('stop failed')
             }
         })

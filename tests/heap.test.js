@@ -23,6 +23,7 @@ describe('Heap', () => {
             inspector = new Inspector({
                 storage: { type: 'fs' }
             })
+            const oldImpl = inspector.profiler.session.post
 
             inspector.heap.session.post = (name, opts, cb) => { if (cb) cb(new Error('takeHeapSnapshot failed')) }
 
@@ -30,6 +31,7 @@ describe('Heap', () => {
                 await inspector.heap.takeSnapshot()
                 throw new Error('Should have failed!')
             } catch (err) {
+                inspector.profiler.session.post = oldImpl
                 expect(err.message).toEqual('takeHeapSnapshot failed')
             }
         })
