@@ -1,6 +1,6 @@
 {
   "name": "inspector-api",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/jest",
@@ -15,9 +15,9 @@
     "memory",
     "coverage"
   ],
-  "author": "",
+  "author": "wallet77",
   "license": "ISC",
-  "description": "",
+  "description": "A simple node module to access V8 inspector + some tools to export and read the data.",
   "engines": {
     "nodes": ">=8.0.0"
   },

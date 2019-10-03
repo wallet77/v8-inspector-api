@@ -1,0 +1,100 @@
+<div align="center">
+<b>V8 inspector API module</b><br/>
+<br/><br/>
+
+<a href="https://badge.fury.io/js/inspector-api">
+   <img src="https://badge.fury.io/js/inspector-api.svg" alt="npm version" height="18">
+</a>
+</div>
+
+
+# Purpose
+
+Simple wrapper around "inspector" module.
+Basically it adds :
+- promises & async/await syntax
+- S3 exporter
+
+# Compatibility
+
+**/!\ This module use async/await syntax and the inspector module, this is why you must have node 8.0+.**
+
+Supported and tested : >= 8.0
+
+| Version       | Supported     | Tested         |
+| ------------- |:-------------:|:--------------:|
+| 12.x          | yes           | yes            |
+| 10.x          | yes           | yes            |
+| 9.x           | yes           | yes            |
+| 8.x           | yes           | yes            |
+
+
+**In order to have all features we recommend to use at least Node.js version 10 or higher.
+
+# Installation
+
+```console
+$ npm install inspector-api --save
+```
+
+# Usage
+
+## Basic usage
+```javascript
+const Inspector = require('inspector-api');
+const inspector = new Inspector()
+
+await inspector.profiler.enable()
+await inspector.profiler.start()
+// Invoke business logic under measurement here...
+
+// some time later...
+await inspector.profiler.stop()
+
+```
+
+
+## Use S3 exporter
+```javascript
+const Inspector = require('inspector-api');
+const inspector = new Inspector({
+    storage: {
+        type: 's3',
+        bucket: 'testBucket',
+        dir: 'inspector'
+    }
+})
+
+await inspector.profiler.enable()
+await inspector.profiler.start()
+// Invoke business logic under measurement here...
+
+// some time later...
+await inspector.profiler.stop()
+
+```
+
+### Config
+
+inspector([config])
+
+* `storage` : an object containing all exporter configuration (for example S3 bucket's name etc)
+
+#### storage
+
+| Option        | description                                | Default value  |
+| ------------- |:------------------------------------------:|:--------------:|
+| `type`        | Storage type (raw, s3 or fs)               | raw            |
+| `bucket`      | S3 bucket's name                           | 0              |
+| `dir`         | Directory where to store the file          | empty          |
+
+If you use fs, the generated data will be store on the disk in your default tmp directory.
+You can display it in Node.js with the command `require('os').tmpdir()`
+
+# Test
+
+```console
+$ npm test
+```
+
+Coverage report can be found in coverage/.
