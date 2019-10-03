@@ -69,7 +69,9 @@ await inspector.profiler.stop()
 
 ### Config
 
-inspector([config])
+```javascript
+new inspector([config])
+```
 
 * `storage` : an object containing all exporter configuration (for example S3 bucket's name etc)
 
