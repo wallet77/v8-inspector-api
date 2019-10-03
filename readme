@@ -15,12 +15,11 @@ Basically it adds :
 Supported and tested : >= 8.0
 
 | Version       | Supported     | Tested         |
-| ------------- |:-------------:|:--------------:|
+|:-------------:|:-------------:|:--------------:|
 | 12.x          | yes           | yes            |
 | 10.x          | yes           | yes            |
 | 9.x           | yes           | yes            |
 | 8.x           | yes           | yes            |
-
 
 ** In order to have all features we recommend to use at least Node.js version 10 or higher.**
 
@@ -67,18 +66,16 @@ await inspector.profiler.stop()
 
 ```
 
-### Config
+### Constructor's config
 
 ```javascript
 new inspector([config])
 ```
 
-* `storage` : an object containing all exporter configuration (for example S3 bucket's name etc)
+#### config.storage
 
-#### storage
-
-| Option        | description                                | Default value  |
-| ------------- |:------------------------------------------:|:--------------:|
+| Option        | description                                | Default value  |
+|:-------------:|:------------------------------------------:|:--------------:|
 | `type`        | Storage type (raw, s3 or fs)               | raw            |
 | `bucket`      | S3 bucket's name                           | 0              |
 | `dir`         | Directory where to store the file          | empty          |
