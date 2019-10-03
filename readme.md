@@ -21,7 +21,7 @@ Supported and tested : >= 8.0
 | 9.x           | yes           | yes            |
 | 8.x           | yes           | yes            |
 
-** In order to have all features we recommend to use at least Node.js version 10 or higher.**
+**In order to have all features we recommend to use at least Node.js version 10 or higher.**
 
 # Installation
 
