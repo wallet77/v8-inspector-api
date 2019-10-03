@@ -1,12 +1,5 @@
-<div align="center">
-<b>V8 inspector API module</b><br/>
-<br/><br/>
-
-<a href="https://badge.fury.io/js/inspector-api">
-   <img src="https://badge.fury.io/js/inspector-api.svg" alt="npm version" height="18">
-</a>
-</div>
-
+[![GitHub release](https://badge.fury.io/js/inspector-api.svg)](https://github.com/wallet77/v8-inspector-api/releases/)
+[![GitHub license](https://img.shields.io/github/license/wallet77/v8-inspector-api)](https://github.com/wallet77/v8-inspector-api/blob/master/LICENSE)
 
 # Purpose
 
@@ -29,7 +22,7 @@ Supported and tested : >= 8.0
 | 8.x           | yes           | yes            |
 
 
-** In order to have all features we recommend to use at least Node.js version 10 or higher.
+** In order to have all features we recommend to use at least Node.js version 10 or higher.**
 
 # Installation
 
