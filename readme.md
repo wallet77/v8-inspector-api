@@ -31,7 +31,7 @@ $ npm install inspector-api --save
 
 # Usage
 
-## Basic usage
+## CPU profiling
 ```javascript
 const Inspector = require('inspector-api');
 const inspector = new Inspector()
@@ -45,6 +45,28 @@ await inspector.profiler.stop()
 
 ```
 
+## Memory sampling
+```javascript
+const Inspector = require('inspector-api');
+const inspector = new Inspector()
+
+await inspector.heap.enable()
+await inspector.heap.startSampling()
+// Invoke business logic under measurement here...
+
+// some time later...
+await inspector.heap.stopSampling()
+
+```
+
+## Memory snapshot
+```javascript
+const Inspector = require('inspector-api');
+const inspector = new Inspector()
+
+await inspector.heap.takeSnapshot()
+
+```
 
 ## Use S3 exporter
 ```javascript
@@ -77,8 +99,8 @@ new inspector([config])
 | Option        | description                                | Default value  |
 |:-------------:|:------------------------------------------:|:--------------:|
 | `type`        | Storage type (raw, s3 or fs)               | raw            |
-| `bucket`      | S3 bucket's name                           | 0              |
-| `dir`         | Directory where to store the file          | empty          |
+| `bucket`      | S3 bucket's name                           | none           |
+| `dir`         | Directory where to store the file          | none           |
 
 If you use fs, the generated data will be store on the disk in your default tmp directory.
 You can display it in Node.js with the command `require('os').tmpdir()`

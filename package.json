@@ -24,15 +24,15 @@
   "engineStrict": true,
   "devDependencies": {
     "aws-sdk-mock": "^4.5.0",
-    "eslint": "^6.0.1",
-    "eslint-config-standard": "^13.0.1",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-node": "^9.1.0",
+    "eslint": "^6.5.1",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "jest": "24.8.0"
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "24.9.0"
   },
   "dependencies": {
-    "@voodoo.io/aws-utils": "2.1.0"
+    "@voodoo.io/aws-utils": "2.2.0"
   }
 }
