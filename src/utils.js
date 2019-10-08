@@ -26,9 +26,9 @@ const writeData = (data, fileName, config, s3Tools) => {
 module.exports = {
     writeData: writeData,
 
-    invokeFunction: (session, fnName) => {
+    invokeFunction: (session, fnName, args = {}) => {
         return new Promise((resolve, reject) => {
-            session.post(fnName, (err) => {
+            session.post(fnName, args, (err) => {
                 if (err) return reject(err)
                 resolve()
             })
@@ -40,12 +40,12 @@ module.exports = {
             session.post(fnName, (err, res) => {
                 if (err) return reject(err)
 
-                const profile = res.profile
+                const data = res.profile || res.result
 
                 const date = new Date()
                 const fileName = `${suffix}_${date.getTime()}.${ext}`
 
-                writeData(profile, fileName, config, s3Tools).then((data) => {
+                writeData(data, fileName, config, s3Tools).then((data) => {
                     resolve(data)
                 }).catch(err => reject(err))
             })

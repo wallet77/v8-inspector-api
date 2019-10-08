@@ -2,7 +2,7 @@ const Inspector = require('../index')
 
 describe('Profiler', () => {
     describe('General methods', () => {
-        it('collect raw data', async () => {
+        it('get current Session', async () => {
             const inspector = new Inspector()
             await inspector.profiler.enable()
             const session = inspector.getCurrentSession()
@@ -87,7 +87,7 @@ describe('Profiler', () => {
         it('enable() fail', async () => {
             inspector = new Inspector()
             const oldImpl = inspector.profiler.session.post
-            inspector.profiler.session.post = (name, cb) => { cb(new Error('enable failed')) }
+            inspector.profiler.session.post = (name, args, cb) => { cb(new Error('enable failed')) }
 
             try {
                 await inspector.profiler.enable()
@@ -106,7 +106,7 @@ describe('Profiler', () => {
 
             try {
                 await inspector.profiler.enable()
-                inspector.profiler.session.post = (name, cb) => { cb(new Error('start failed')) }
+                inspector.profiler.session.post = (name, args, cb) => { cb(new Error('start failed')) }
                 await inspector.profiler.start()
                 await inspector.profiler.stop()
                 throw new Error('Should have failed!')
@@ -130,6 +130,32 @@ describe('Profiler', () => {
                 inspector.profiler.session.post = oldImpl
                 expect(err.message).toEqual('stop failed')
             }
+        })
+    })
+
+    describe('Coverage', () => {
+        let inspector = null
+
+        afterEach(async () => {
+            await inspector.destroy()
+        })
+
+        it('collect raw data', async (done) => {
+            inspector = new Inspector()
+            await inspector.profiler.enable()
+            await inspector.profiler.startPreciseCoverage()
+
+            const child = require('child_process').fork(`${__dirname}/resources/coverage.js`)
+
+            child.on('message', async (data) => {
+                const hasDoJobFunction = JSON.parse(data).find((item) => {
+                    return item.functions.find(fn => { return fn.functionName === 'doJob' })
+                })
+
+                expect(hasDoJobFunction).toBeDefined()
+                child.kill()
+                done()
+            })
         })
     })
 })
