@@ -140,22 +140,19 @@ describe('Profiler', () => {
             await inspector.destroy()
         })
 
-        it('collect raw data', async (done) => {
+        it('collect raw data', async () => {
             inspector = new Inspector()
             await inspector.profiler.enable()
-            await inspector.profiler.startPreciseCoverage()
+            await inspector.profiler.startPreciseCoverage({ callCount: true, detailed: true })
 
-            const child = require('child_process').fork(`${__dirname}/resources/coverage.js`)
+            const data = await inspector.profiler.takePreciseCoverage()
+            await inspector.profiler.stopPreciseCoverage()
 
-            child.on('message', async (data) => {
-                const hasDoJobFunction = JSON.parse(data).find((item) => {
-                    return item.functions.find(fn => { return fn.functionName === 'doJob' })
-                })
-
-                expect(hasDoJobFunction).toBeDefined()
-                child.kill()
-                done()
+            const detectProfilerFile = data.find((item) => {
+                return item.url.indexOf('profiler.test.js') > -1
             })
+
+            expect(detectProfilerFile).toBeDefined()
         })
     })
 })
