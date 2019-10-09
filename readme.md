@@ -33,7 +33,7 @@ $ npm install inspector-api --save
 
 ## CPU profiling
 ```javascript
-const Inspector = require('inspector-api');
+const Inspector = require('inspector-api')
 const inspector = new Inspector()
 
 await inspector.profiler.enable()
@@ -47,7 +47,7 @@ await inspector.profiler.stop()
 
 ## Memory sampling
 ```javascript
-const Inspector = require('inspector-api');
+const Inspector = require('inspector-api')
 const inspector = new Inspector()
 
 await inspector.heap.enable()
@@ -61,7 +61,7 @@ await inspector.heap.stopSampling()
 
 ## Memory snapshot
 ```javascript
-const Inspector = require('inspector-api');
+const Inspector = require('inspector-api')
 const inspector = new Inspector()
 
 await inspector.heap.takeSnapshot()
@@ -70,7 +70,7 @@ await inspector.heap.takeSnapshot()
 
 ## Use S3 exporter
 ```javascript
-const Inspector = require('inspector-api');
+const Inspector = require('inspector-api')
 const inspector = new Inspector({
     storage: {
         type: 's3',
