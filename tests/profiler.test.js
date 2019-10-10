@@ -20,6 +20,7 @@ describe('Profiler', () => {
 
         afterEach(async () => {
             await inspector.destroy()
+            jest.resetAllMocks()
         })
 
         it('collect raw data', async () => {
