@@ -22,7 +22,7 @@ class Heap {
     }
 
     async stopSampling () {
-        return utils.invokeStop('HeapProfiler.stopSampling', this.session, 'heapprofiler', 'heapsnapshot', this.config, this.s3Tools)
+        return utils.invokeStop('HeapProfiler.stopSampling', this.session, 'heapprofiler', 'heapprofile', this.config, this.s3Tools)
     }
 
     takeSnapshot () {
