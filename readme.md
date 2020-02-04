@@ -68,6 +68,19 @@ await inspector.heap.takeSnapshot()
 
 ```
 
+## Code coverage
+```javascript
+const Inspector = require('inspector-api')
+const inspector = new Inspector()
+
+await inspector.profiler.enable()
+await inspector.profiler.startPreciseCoverage({ callCount: true, detailed: true })
+
+const data = await inspector.profiler.takePreciseCoverage()
+await inspector.profiler.stopPreciseCoverage()
+
+```
+
 ## Use S3 exporter
 ```javascript
 const Inspector = require('inspector-api')
