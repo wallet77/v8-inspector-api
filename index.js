@@ -9,9 +9,9 @@ const aws = require('aws-sdk')
 
 class Inspector {
     constructor (config = {}) {
-        if (!config.aws) config.aws = {}
+        if (!config.aws) config.aws = { region: 'eu-west-1' }
 
-        aws.config.update({ region: config.aws.region || 'eu-west-1' })
+        aws.config.update(config.aws)
         const cli = new aws.S3(config.aws.s3 || {})
         const s3Tools = new AwsUtils(cli)
 
