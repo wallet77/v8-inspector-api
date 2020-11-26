@@ -1,10 +1,19 @@
 {
   "name": "inspector-api",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "index.js",
+  "bin": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    "require": "./index.js",
+    "import": "./index.js"
+  },
+  "files": [
+    "src/**"
+  ],
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/jest",
-    "lint": "./node_modules/.bin/eslint ./"
+    "linter": "./node_modules/.bin/eslint ./"
   },
   "keywords": [
     "v8",
@@ -15,8 +24,12 @@
     "memory",
     "coverage"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wallet77/v8-inspector-api.git"
+  },
   "author": "wallet77",
-  "license": "ISC",
+  "license": "MIT",
   "description": "A simple node module to access V8 inspector + some tools to export and read the data.",
   "engines": {
     "nodes": ">=8.0.0"
@@ -24,12 +37,12 @@
   "engineStrict": true,
   "devDependencies": {
     "aws-sdk-mock": "^5.1.0",
-    "eslint": "^7.13.0",
-    "eslint-config-standard": "^16.0.1",
+    "eslint": "^7.14.0",
+    "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.1.0",
+    "eslint-plugin-standard": "^5.0.0",
     "jest": "26.6.3"
   },
   "dependencies": {

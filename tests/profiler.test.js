@@ -1,5 +1,13 @@
 const Inspector = require('../index')
 
+const startAndStopAndCheckData = async (inspector) => {
+    await inspector.profiler.enable()
+    await inspector.profiler.start()
+
+    const data = await inspector.profiler.stop()
+    expect(Object.keys(data)).toEqual(['nodes', 'startTime', 'endTime', 'samples', 'timeDeltas'])
+}
+
 describe('Profiler', () => {
     describe('General methods', () => {
         it('get current Session', async () => {
@@ -25,12 +33,7 @@ describe('Profiler', () => {
 
         it('collect raw data', async () => {
             inspector = new Inspector()
-            await inspector.profiler.enable()
-            await inspector.profiler.start()
-
-            const data = await inspector.profiler.stop()
-
-            expect(Object.keys(data)).toEqual(['nodes', 'startTime', 'endTime', 'samples', 'timeDeltas'])
+            await startAndStopAndCheckData(inspector)
         })
 
         it('collect data and send to s3', async () => {
@@ -78,11 +81,7 @@ describe('Profiler', () => {
                 }
             })
 
-            await inspector.profiler.enable()
-            await inspector.profiler.start()
-
-            const data = await inspector.profiler.stop()
-            expect(Object.keys(data)).toEqual(['nodes', 'startTime', 'endTime', 'samples', 'timeDeltas'])
+            await startAndStopAndCheckData(inspector)
         })
 
         it('enable() fail', async () => {
