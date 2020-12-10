@@ -2,7 +2,7 @@
 [![GitHub license](https://img.shields.io/github/license/wallet77/v8-inspector-api)](https://github.com/wallet77/v8-inspector-api/blob/master/LICENSE)
 
 [![CI pipeline](https://github.com/wallet77/v8-inspector-api/workflows/Node.js%20CI/badge.svg)](https://github.com/wallet77/v8-inspector-api/actions?query=workflow%3A%22Node.js+CI%22)
-[![Code coverage](https://codecov.io/gh/wallet77/v8-inspector-api/branch/main/graph/badge.svg)](https://codecov.io/gh/wallet77/v8-inspector-api)
+[![Code coverage](https://codecov.io/gh/wallet77/v8-inspector-api/branch/master/graph/badge.svg)](https://codecov.io/gh/wallet77/v8-inspector-api)
 [![Opened issues](https://img.shields.io/github/issues-raw/wallet77/v8-inspector-api)](https://github.com/wallet77/v8-inspector-api/issues)
 [![Opened PR](https://img.shields.io/github/issues-pr-raw/wallet77/v8-inspector-api)](https://github.com/wallet77/v8-inspector-api/pulls)
 [![DeepScan grade](https://deepscan.io/api/teams/12061/projects/15020/branches/292505/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=12061&pid=15020&bid=292505)
