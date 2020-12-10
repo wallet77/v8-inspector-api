@@ -5,5 +5,4 @@
 **/.DS_Store
 **/test_files
 .idea
-**/package-lock.json
 **/coverage
