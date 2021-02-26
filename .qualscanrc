@@ -1,0 +1,12 @@
+{
+    "require-time": {
+        "budget": {
+            "fail": { "entrypointTime": 500000000 }
+        }
+    },
+    "dependencies-size": {
+        "budget": {
+            "fail": { "weight": 200000000, "dependencies": 20, "directDependencies": 5 }
+        }
+    }
+}
