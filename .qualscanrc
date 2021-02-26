@@ -1,7 +1,7 @@
 {
     "require-time": {
         "budget": {
-            "fail": { "entrypointTime": 1000000000 }
+            "fail": { "entrypointTime": 1500000000 }
         }
     },
     "dependencies-size": {
