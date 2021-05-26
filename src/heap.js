@@ -3,8 +3,8 @@
 const utils = require('./utils')
 
 class Heap {
-    constructor (session, config, s3Tools) {
-        this.s3Tools = s3Tools
+    constructor (session, config, s3Client) {
+        this.s3Client = s3Client
         this.session = session
         this.config = config
     }
@@ -22,7 +22,7 @@ class Heap {
     }
 
     async stopSampling () {
-        return utils.invokeStop('HeapProfiler.stopSampling', this.session, 'heapprofiler', 'heapprofile', this.config, this.s3Tools)
+        return utils.invokeStop('HeapProfiler.stopSampling', this.session, 'heapprofiler', 'heapprofile', this.config, this.s3Client)
     }
 
     takeSnapshot () {

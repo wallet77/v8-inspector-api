@@ -1,26 +1,24 @@
 const fs = require('fs')
 const os = require('os')
+const { PutObjectCommand } = require('@aws-sdk/client-s3')
 
-const writeData = (data, fileName, config, s3Tools) => {
+const writeData = async (data, fileName, config, s3Client) => {
     if (!config.storage) config.storage = { type: 'raw' }
 
-    return new Promise((resolve, reject) => {
-        if (config.storage.type === 'fs') {
-            const tmpDir = os.tmpdir()
-            fs.writeFile(`${tmpDir}/${fileName}`, JSON.stringify(data), (err) => {
-                if (err) return reject(err)
-                resolve(data)
-            })
-        } else if (config.storage.type === 's3') {
-            s3Tools.putJsonObject(config.storage.bucket, `${config.storage.dir}/${fileName}`, data).then(() => {
-                resolve(data)
-            }).catch((err) => {
-                reject(err)
-            })
-        } else if (config.storage.type === 'raw') {
-            resolve(data)
+    if (config.storage.type === 'fs') {
+        const tmpDir = os.tmpdir()
+        await fs.promises.writeFile(`${tmpDir}/${fileName}`, JSON.stringify(data))
+    } else if (config.storage.type === 's3') {
+        const params = {
+            Body: JSON.stringify(data),
+            Bucket: config.storage.bucket,
+            Key: `${config.storage.dir}/${fileName}`,
+            ContentType: 'application/json'
         }
-    })
+        const command = new PutObjectCommand(params)
+        await s3Client.send(command)
+    }
+    return data
 }
 
 module.exports = {
@@ -35,7 +33,7 @@ module.exports = {
         })
     },
 
-    invokeStop: (fnName, session, suffix, ext, config, s3Tools) => {
+    invokeStop: (fnName, session, suffix, ext, config, s3Client) => {
         return new Promise((resolve, reject) => {
             session.post(fnName, (err, res) => {
                 if (err) return reject(err)
@@ -45,7 +43,7 @@ module.exports = {
                 const date = new Date()
                 const fileName = `${suffix}_${date.getTime()}.${ext}`
 
-                writeData(data, fileName, config, s3Tools).then((data) => {
+                writeData(data, fileName, config, s3Client).then((data) => {
                     resolve(data)
                 }).catch(err => reject(err))
             })
