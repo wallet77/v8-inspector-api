@@ -20,8 +20,6 @@ Basically it adds :
 
 # Compatibility
 
-Supported and tested : >= 8.0
-
 | Version       | Supported     | Tested         |
 |:-------------:|:-------------:|:--------------:|
 | 14.x          | yes           | yes            |

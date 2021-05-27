@@ -1,14 +1,17 @@
-jest.mock('fs')
 const Inspector = require('../index')
+
+jest.mock('fs', () => ({
+    promises: {
+        writeFile: (filename, data) => {
+            throw new Error('writing failed!')
+        }
+    }
+}))
 
 describe('Make fs failed', () => {
     let inspector = null
 
     it('collect data and write it on the disk but failed', async () => {
-        const fs = require('fs')
-        fs.writeFile.mockImplementation((filename, data, cb) => {
-            cb(new Error('writing failed!'))
-        })
         inspector = new Inspector({
             storage: {
                 type: 'fs'
