@@ -9,7 +9,7 @@ describe('Heap', () => {
             inspector.destroy()
         })
 
-        it('collect raw data', async () => {
+        xit('collect raw data', async () => {
             inspector = new Inspector({
                 storage: { type: 'fs' }
             })
@@ -21,7 +21,7 @@ describe('Heap', () => {
 
         it('should failed on takeHeapSnapshot', async () => {
             inspector = new Inspector({
-                storage: { type: 'fs' }
+                storage: { type: 'raw' }
             })
             const oldImpl = inspector.profiler.session.post
 
@@ -36,9 +36,9 @@ describe('Heap', () => {
             }
         })
 
-        it('should failed on takeHeapSnapshot because of writeData', async () => {
+        xit('should failed on takeHeapSnapshot because of writeData', async () => {
             inspector = new Inspector({
-                storage: { type: 'fs' }
+                storage: { type: 'raw' }
             })
 
             const spy = jest.spyOn(utils, 'writeData').mockReturnValue(Promise.reject(new Error('writeData failed')))
@@ -52,20 +52,15 @@ describe('Heap', () => {
             }
         })
 
-        it('collect sampling raw data', async (done) => {
+        it('collect sampling raw data', async () => {
             inspector = new Inspector()
 
             await inspector.heap.enable()
 
             await inspector.heap.startSampling()
 
-            setTimeout(async () => {
-                const data = await inspector.heap.stopSampling()
-
-                expect(Object.keys(data).length > 0).toEqual(true)
-
-                done()
-            }, 500)
+            const data = await inspector.heap.stopSampling()
+            expect(Object.keys(data).length > 0).toEqual(true)
         })
     })
 })
