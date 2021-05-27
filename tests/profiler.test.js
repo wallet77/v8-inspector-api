@@ -1,3 +1,19 @@
+require('@aws-sdk/client-s3')
+
+jest.mock('@aws-sdk/client-s3', () => {
+    return {
+        S3Client: function PutObjectCommand () {
+            this.send = (command) => {
+                if (command.params.Bucket === 'fail') return Promise.reject(new Error())
+                return Promise.resolve()
+            }
+        },
+        PutObjectCommand: function PutObjectCommand (params) {
+            this.params = params
+        }
+    }
+})
+
 const Inspector = require('../index')
 
 const startAndStopAndCheckData = async (inspector) => {
@@ -9,6 +25,10 @@ const startAndStopAndCheckData = async (inspector) => {
 }
 
 describe('Profiler', () => {
+    afterEach(() => {
+        jest.resetModules()
+    })
+
     describe('General methods', () => {
         it('get current Session', async () => {
             const inspector = new Inspector()
@@ -44,14 +64,11 @@ describe('Profiler', () => {
                     dir: 'inspector'
                 }
             })
-            inspector.profiler.s3Tools.putJsonObject = jest.fn(async () => {})
 
             await inspector.profiler.enable()
             await inspector.profiler.start()
 
             await inspector.profiler.stop()
-
-            expect(inspector.profiler.s3Tools.putJsonObject.mock.calls.length).toEqual(1)
         })
 
         it('collect data but fail to send to s3', async () => {
@@ -62,7 +79,6 @@ describe('Profiler', () => {
                     dir: 'inspector'
                 }
             })
-            inspector.profiler.s3Tools.putJsonObject = jest.fn(async () => { throw new Error('S3 failed') })
 
             await inspector.profiler.enable()
             await inspector.profiler.start()
