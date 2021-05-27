@@ -20,8 +20,6 @@ Basically it adds :
 
 # Compatibility
 
-**/!\ This module use async/await syntax and the inspector module, this is why you must have node 8.0+.**
-
 Supported and tested : >= 8.0
 
 | Version       | Supported     | Tested         |
@@ -29,8 +27,6 @@ Supported and tested : >= 8.0
 | 14.x          | yes           | yes            |
 | 12.x          | yes           | yes            |
 | 10.x          | yes           | yes            |
-| 9.x           | yes           | yes            |
-| 8.x           | yes           | yes            |
 
 **In order to have all features we recommend to use at least Node.js version 10 or higher.**
 
