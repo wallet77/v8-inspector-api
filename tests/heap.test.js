@@ -9,7 +9,7 @@ describe('Heap', () => {
             inspector.destroy()
         })
 
-        xit('collect raw data', async () => {
+        it('collect raw data', async () => {
             inspector = new Inspector({
                 storage: { type: 'fs' }
             })
@@ -36,7 +36,7 @@ describe('Heap', () => {
             }
         })
 
-        xit('should failed on takeHeapSnapshot because of writeData', async () => {
+        it('should failed on takeHeapSnapshot because of writeData', async () => {
             inspector = new Inspector({
                 storage: { type: 'raw' }
             })
