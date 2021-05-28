@@ -4,13 +4,16 @@ const inspector = require('inspector')
 const Profiler = require('./src/profiler')
 const Heap = require('./src/heap')
 
-const { S3Client } = require('@aws-sdk/client-s3')
-
 class Inspector {
     constructor (config = {}) {
         if (!config.aws) config.aws = { region: 'eu-west-1' }
 
-        const client = new S3Client(config.aws)
+        let client = null
+        if (!config.storage) config.storage = { type: 'raw' }
+        if (config.storage.type === 's3') {
+            const { S3Client } = require('@aws-sdk/client-s3')
+            client = new S3Client(config.aws)
+        }
 
         const session = new inspector.Session()
         session.connect()
