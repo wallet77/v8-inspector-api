@@ -106,6 +106,8 @@ await inspector.profiler.stop()
 
 ```
 
+**Warning: it seems that the new AWS SDK leads to unexpected error if you use the takeSnapshot method (you should use memory sampling)**
+
 ### Constructor's config
 
 ```javascript
