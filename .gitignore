@@ -1,4 +1,5 @@
 **/dist
+**/*.d.ts
 **/open-source
 **/*.zip
 **/node_modules
