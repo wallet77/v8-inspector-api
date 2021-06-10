@@ -9,6 +9,8 @@ describe('Heap', () => {
             inspector.destroy()
         })
 
+        jest.setTimeout(10000)
+
         it('collect raw data', async () => {
             inspector = new Inspector({
                 storage: { type: 'fs' }
