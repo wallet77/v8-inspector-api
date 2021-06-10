@@ -1,3 +1,23 @@
+# Version 1.4.1 released on 2021-06-10
+
+## Features
+
+**Add TS config and types**
+
+This feature will facilitate the work of the devs when they use this module.  
+
+[6f932d3](https://github.com/wallet77/v8-inspector-api/releases/tag/1.4.1) - Version 1.4.1
+
+# Version 1.4.0 released on 2021-06-01
+
+## Features
+
+**Switch to the new AWS SDK**
+
+This feature will reduce package size and improve performances.  
+
+[9be9b5d](https://github.com/wallet77/v8-inspector-api/releases/tag/1.4.0) - Version 1.4.0
+
 # Version 1.x released on 2019-10-03
 
 ## Features
