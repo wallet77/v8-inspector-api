@@ -10,7 +10,6 @@ const writeData = async (data, fileName, config, s3Client) => {
         if (customPath && fs.existsSync(path.resolve(customPath))) {
             pathDestination = customPath
         }
-
         await promises.writeFile(`${pathDestination}/${fileName}`, JSON.stringify(data))
     } else if (config.storage.type === 's3') {
         const { PutObjectCommand } = require('@aws-sdk/client-s3')
