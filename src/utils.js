@@ -6,9 +6,9 @@ const path = require('path')
 const writeData = async (data, fileName, config, s3Client) => {
     if (config.storage.type === 'fs') {
         let pathDestination = os.tmpdir()
-        const customPath = config?.storage?.dir ?? ''
+        const customPath = config.storage.dir || ''
         if (customPath && fs.existsSync(path.resolve(customPath))) {
-            pathDestination = customPath
+            pathDestination = path.resolve(customPath)
         }
         await promises.writeFile(`${pathDestination}/${fileName}`, JSON.stringify(data))
     } else if (config.storage.type === 's3') {
