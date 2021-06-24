@@ -1,10 +1,17 @@
-const fs = require('fs').promises
+const fs = require('fs')
+const promises = require('fs/promises')
 const os = require('os')
+const path = require('path')
 
 const writeData = async (data, fileName, config, s3Client) => {
     if (config.storage.type === 'fs') {
-        const tmpDir = os.tmpdir()
-        await fs.writeFile(`${tmpDir}/${fileName}`, JSON.stringify(data))
+        let pathDestination = os.tmpdir()
+        const customPath = config?.storage?.dir ?? ''
+        if (customPath && fs.existsSync(path.resolve(customPath))) {
+            pathDestination = customPath
+        }
+
+        await promises.writeFile(`${pathDestination}/${fileName}`, JSON.stringify(data))
     } else if (config.storage.type === 's3') {
         const { PutObjectCommand } = require('@aws-sdk/client-s3')
         const params = {
