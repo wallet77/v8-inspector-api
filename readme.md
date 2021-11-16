@@ -6,9 +6,6 @@
 [![Opened issues](https://img.shields.io/github/issues-raw/wallet77/v8-inspector-api)](https://github.com/wallet77/v8-inspector-api/issues)
 [![Opened PR](https://img.shields.io/github/issues-pr-raw/wallet77/v8-inspector-api)](https://github.com/wallet77/v8-inspector-api/pulls)
 [![DeepScan grade](https://deepscan.io/api/teams/12061/projects/15020/branches/292505/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=12061&pid=15020&bid=292505)
-
-[![Dependencies updates](https://img.shields.io/david/wallet77/v8-inspector-api.svg)](https://github.com/wallet77/v8-inspector-api)
-[![Dependencies updates](https://img.shields.io/david/dev/wallet77/v8-inspector-api.svg)](https://github.com/wallet77/v8-inspector-api)
 [![Node version](https://img.shields.io/node/v-lts/inspector-api.svg)](https://github.com/wallet77/v8-inspector-api)
 
 # Purpose
