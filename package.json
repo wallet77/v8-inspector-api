@@ -1,6 +1,6 @@
 {
   "name": "inspector-api",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "main": "index.js",
   "bin": "./index.js",
   "types": "./index.d.ts",
