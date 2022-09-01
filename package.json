@@ -39,7 +39,7 @@
   "license": "MIT",
   "description": "A simple node module to access V8 inspector + some tools to export and read the data.",
   "engines": {
-    "node": ">=10.0.0",
+    "node": ">=14.0.0",
     "npm": ">=6.0.0"
   },
   "engineStrict": true,
