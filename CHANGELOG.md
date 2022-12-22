@@ -1,4 +1,4 @@
-# Version 1.4.5 released on 2022-12-22
+# Version 1.4.6 released on 2022-12-22
 
 ## Features
 
@@ -6,7 +6,7 @@
 
 Upgrades dependencies version.  
 
-[440bf4a](https://github.com/wallet77/v8-inspector-api/releases/tag/1.4.5) - Version 1.4.5
+[440bf4a](https://github.com/wallet77/v8-inspector-api/releases/tag/1.4.6) - Version 1.4.6
 
 # Version 1.4.1 released on 2021-06-10
 
