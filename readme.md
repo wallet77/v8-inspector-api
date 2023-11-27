@@ -19,9 +19,9 @@ Basically it adds :
 
 | Version       | Supported     | Tested         |
 |:-------------:|:-------------:|:--------------:|
+| 20.x          | yes           | yes            |
 | 18.x          | yes           | yes            |
 | 16.x          | yes           | yes            |
-| 14.x          | yes           | yes            |
 
 **In order to have all features we recommend to use at least Node.js version 10 or higher.**
 
