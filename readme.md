@@ -19,6 +19,8 @@ Basically it adds :
 
 | Version       | Supported     | Tested         |
 |:-------------:|:-------------:|:--------------:|
+| 24.x          | yes           | yes            |
+| 22.x          | yes           | yes            |
 | 20.x          | yes           | yes            |
 | 18.x          | yes           | yes            |
 | 16.x          | yes           | yes            |

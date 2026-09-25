@@ -5,6 +5,7 @@ const Profiler = require('./src/profiler')
 const Heap = require('./src/heap')
 
 class Inspector {
+    /** @param {import('./src/types').InspectorConfig} [config] */
     constructor (config = {}) {
         if (!config.aws) config.aws = { region: 'eu-west-1' }
 
@@ -18,10 +19,12 @@ class Inspector {
         const session = new inspector.Session()
         session.connect()
 
+        /** @type {import('inspector').Session | null} */
         this.session = session
 
-        this.profiler = new Profiler(this.session, config, client)
-        this.heap = new Heap(this.session, config, client)
+        const resolved = /** @type {import('./src/types').ResolvedConfig} */ (config)
+        this.profiler = new Profiler(session, resolved, client)
+        this.heap = new Heap(session, resolved, client)
     }
 
     getCurrentSession () {
@@ -31,7 +34,7 @@ class Inspector {
     async destroy () {
         await this.profiler.disable()
         await this.heap.disable()
-        this.session.disconnect()
+        this.session?.disconnect()
         this.session = null
     }
 }

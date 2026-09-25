@@ -1,13 +1,23 @@
 {
   "compilerOptions": {
+    "target": "es2022",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "types": ["node"],
     "allowJs": true,
     "checkJs": true,
-    "noEmit": false,
+    "strict": true,
+    "skipLibCheck": true,
+    "declaration": true,
     "emitDeclarationOnly": true,
-    "declaration": true
+    "outDir": "./types"
   },
   "include": [
     "index.js",
-    "src/"
+    "src/**/*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "types"
   ]
 }

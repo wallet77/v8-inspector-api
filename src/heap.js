@@ -3,6 +3,11 @@
 const utils = require('./utils')
 
 class Heap {
+    /**
+     * @param {import('inspector').Session} session
+     * @param {import('./types').ResolvedConfig} config
+     * @param {import('@aws-sdk/client-s3').S3Client | null} s3Client
+     */
     constructor (session, config, s3Client) {
         this.s3Client = s3Client
         this.session = session
@@ -25,16 +30,19 @@ class Heap {
         return utils.invokeStop('HeapProfiler.stopSampling', this.session, 'heapprofiler', 'heapprofile', this.config, this.s3Client)
     }
 
+    /** @returns {Promise<any>} */
     takeSnapshot () {
         return new Promise((resolve, reject) => {
+            /** @type {string[]} */
             const res = []
+            /** @param {import('inspector').InspectorNotification<import('inspector').HeapProfiler.AddHeapSnapshotChunkEventDataType>} m */
             const getChunk = (m) => {
                 res.push(m.params.chunk)
             }
 
             this.session.on('HeapProfiler.addHeapSnapshotChunk', getChunk)
 
-            this.session.post('HeapProfiler.takeHeapSnapshot', null, (err, r) => {
+            this.session.post('HeapProfiler.takeHeapSnapshot', undefined, (err) => {
                 this.session.removeListener('HeapProfiler.addHeapSnapshotChunk', getChunk)
 
                 if (err) return reject(err)

@@ -43,15 +43,12 @@ describe('Heap', () => {
                 storage: { type: 'raw' }
             })
 
-            const spy = jest.spyOn(utils, 'writeData').mockReturnValue(Promise.reject(new Error('writeData failed')))
+            const spy = jest.spyOn(utils, 'writeData').mockRejectedValue(new Error('writeData failed'))
 
-            try {
-                await inspector.heap.takeSnapshot()
-                throw new Error('Should have failed!')
-            } catch (err) {
-                expect(err.message).toEqual('writeData failed')
-                expect(spy).toHaveBeenCalledTimes(1)
-            }
+            await expect(inspector.heap.takeSnapshot()).rejects.toThrow('writeData failed')
+            expect(spy).toHaveBeenCalledTimes(1)
+
+            spy.mockRestore()
         })
 
         it('collect sampling raw data', async () => {

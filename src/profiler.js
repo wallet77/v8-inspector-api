@@ -3,6 +3,11 @@
 const utils = require('./utils')
 
 class Profiler {
+    /**
+     * @param {import('inspector').Session} session
+     * @param {import('./types').ResolvedConfig} config
+     * @param {import('@aws-sdk/client-s3').S3Client | null} s3Client
+     */
     constructor (session, config, s3Client) {
         this.s3Client = s3Client
         this.session = session
@@ -25,6 +30,7 @@ class Profiler {
         return utils.invokeStop('Profiler.stop', this.session, 'profile', 'cpuprofile', this.config, this.s3Client)
     }
 
+    /** @param {import('inspector').Profiler.StartPreciseCoverageParameterType} [args] */
     async startPreciseCoverage (args) {
         return utils.invokeFunction(this.session, 'Profiler.startPreciseCoverage', args)
     }
