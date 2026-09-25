@@ -8,5 +8,12 @@
         "budget": {
             "fail": { "weight": 200000000, "dependencies": 95, "directDependencies": 5, "depth": 6 }
         }
+    },
+    "dependencies-check": {
+        "args": {
+            "ignoreMatches": [
+                "typescript-eslint"
+            ]
+        }
     }
 }

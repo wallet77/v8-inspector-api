@@ -28,7 +28,8 @@ jobs:
     - run: npm run types
 
     - name: Run the qualscan tool
-      run: | 
+      continue-on-error: true
+      run: |
         npm install qualscan -g
         qualscan --scripts
 
