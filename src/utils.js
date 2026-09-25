@@ -58,20 +58,20 @@ module.exports = {
      * @param {S3Client | null} s3Client
      * @returns {Promise<any>}
      */
-    invokeStop: (fnName, session, suffix, ext, config, s3Client) => {
-        return new Promise((resolve, reject) => {
+    invokeStop: async (fnName, session, suffix, ext, config, s3Client) => {
+        /** @type {any} */
+        const res = await new Promise((resolve, reject) => {
             session.post(fnName, (/** @type {Error | null} */ err, /** @type {any} */ res) => {
                 if (err) return reject(err)
-
-                const data = res.profile || res.result
-
-                const date = new Date()
-                const fileName = `${suffix}_${date.getTime()}.${ext}`
-
-                writeData(data, fileName, config, s3Client).then((data) => {
-                    resolve(data)
-                }).catch(err => reject(err))
+                resolve(res)
             })
         })
+
+        const data = res.profile || res.result
+
+        const date = new Date()
+        const fileName = `${suffix}_${date.getTime()}.${ext}`
+
+        return writeData(data, fileName, config, s3Client)
     }
 }

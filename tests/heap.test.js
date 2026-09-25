@@ -27,7 +27,7 @@ describe('Heap', () => {
             })
             const oldImpl = inspector.profiler.session.post
 
-            inspector.heap.session.post = (name, opts, cb) => { if (cb) cb(new Error('takeHeapSnapshot failed')) }
+            inspector.heap.session.post = (name, opts, cb) => cb && cb(new Error('takeHeapSnapshot failed'))
 
             try {
                 await inspector.heap.takeSnapshot()

@@ -2,7 +2,7 @@ const Inspector = require('../index')
 
 jest.mock('fs', () => ({
     promises: {
-        writeFile: (filename, data) => {
+        writeFile: () => {
             throw new Error('writing failed!')
         }
     }

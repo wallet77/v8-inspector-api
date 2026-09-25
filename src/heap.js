@@ -31,30 +31,29 @@ class Heap {
     }
 
     /** @returns {Promise<any>} */
-    takeSnapshot () {
-        return new Promise((resolve, reject) => {
-            /** @type {string[]} */
-            const res = []
-            /** @param {import('inspector').InspectorNotification<import('inspector').HeapProfiler.AddHeapSnapshotChunkEventDataType>} m */
-            const getChunk = (m) => {
-                res.push(m.params.chunk)
-            }
+    async takeSnapshot () {
+        /** @type {string[]} */
+        const res = []
+        /** @param {import('inspector').InspectorNotification<import('inspector').HeapProfiler.AddHeapSnapshotChunkEventDataType>} m */
+        const getChunk = (m) => {
+            res.push(m.params.chunk)
+        }
 
-            this.session.on('HeapProfiler.addHeapSnapshotChunk', getChunk)
+        this.session.on('HeapProfiler.addHeapSnapshotChunk', getChunk)
 
+        await new Promise((resolve, reject) => {
             this.session.post('HeapProfiler.takeHeapSnapshot', undefined, (err) => {
                 this.session.removeListener('HeapProfiler.addHeapSnapshotChunk', getChunk)
 
                 if (err) return reject(err)
-
-                const date = new Date()
-                const fileName = `profile_${date.getTime()}.heapsnapshot`
-
-                utils.writeData(JSON.parse(res.join('')), fileName, this.config, this.s3Client).then((data) => {
-                    resolve(data)
-                }).catch(err => reject(err))
+                resolve(undefined)
             })
         })
+
+        const date = new Date()
+        const fileName = `profile_${date.getTime()}.heapsnapshot`
+
+        return utils.writeData(JSON.parse(res.join('')), fileName, this.config, this.s3Client)
     }
 }
 
